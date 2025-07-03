@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="Design.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Urna Eletrônica</title>
+</head>
+<body class="theme-default">
+    <button id="theme-toggle" class="theme-toggle">🌓</button>
+
+    <div class="container">
+        <!-- Tela de Senha -->
+        <div id="password-screen" class="password-screen active">
+            <h1>Acesso ao Simulador </h1>
+            <div id="admin-login">
+                <p>Digite a senha para configurar a votação:</p>
+                <input type="password" id="admin-password" class="password-input" placeholder="Senha">
+                <button id="verify-password-btn" class="btn">Acessar como Administrador</button>
+                <p id="password-error" class="password-error">Senha incorreta!</p>
+            </div>
+            <div style="margin-top: 30px;">
+                <button id="voter-access-btn" class="btn btn-secondary">Acessar como Eleitor</button>
+            </div>
+        </div>
+
+        <!-- Tela de Seleção de Eleições -->
+        <div id="election-selection-screen" class="election-selection-screen">
+            <h1>Selecione uma Eleição</h1>
+            <div id="elections-list"></div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button id="back-to-password-btn" class="btn btn-secondary">Voltar</button>
+            </div>
+        </div>
+
+        <!-- Tela de Boas-vindas -->
+        <div id="welcome-screen" class="welcome-screen">
+            <h1>Simulador </h1>
+            <p>Bem-vindo ao simulador </p>
+            <div id="election-ended-section" style="display: none; margin-top: 20px;">
+                <h3>Eleição Finalizada!</h3>
+                <p>A eleição foi concluída com sucesso.</p>
+                <button id="view-election-results-btn" class="btn">Ver Resultado da Eleição</button>
+                <button id="back-to-initial-after-end-btn" class="btn btn-secondary">Voltar à Tela Inicial</button>
+            </div>
+            <div id="admin-panel" class="admin-panel" style="display: none;">
+                <h3>Painel Administrativo</h3>
+                <button id="config-election-btn" class="btn">Configurar Eleição</button>
+                <button id="view-results-btn" class="btn">Ver Resultados</button>
+                <button id="back-to-initial-btn" class="btn btn-secondary">Voltar à Tela Inicial</button>
+            </div>
+            <div id="start-voting-section" style="text-align: center; margin-top: 30px;">
+                <button id="start-voting-btn" class="btn">Iniciar Votação</button>
+            </div>
+        </div>
+
+        <!-- Tela de Configuração -->
+        <div id="configuration-screen" class="configuration-screen">
+            <h2>Configurar Votação</h2>
+            <div class="form-group">
+                <label for="election-title">Título da Eleição:</label>
+                <input type="text" id="election-title" placeholder="Ex: Eleição para Representante de Turma">
+            </div>
+            <div class="form-group">
+                <label for="end-password">Senha para Finalizar Votação:</label>
+                <input type="password" id="end-password" placeholder="Digite a senha para finalizar">
+            </div>
+            <h3>Adicionar Candidatos/Opções</h3>
+            <div class="form-group">
+                <label for="candidate-number">Número do Candidato/Opção (2 dígitos):</label>
+                <input type="number" id="candidate-number" min="0" max="99" placeholder="Ex: 10">
+            </div>
+            <div class="form-group">
+                <label for="candidate-name">Nome do Candidato/Opção:</label>
+                <input type="text" id="candidate-name" placeholder="Ex: João Silva">
+            </div>
+            <div class="form-group">
+                <label for="candidate-party">Partido/Descrição (opcional):</label>
+                <input type="text" id="candidate-party" placeholder="Ex: Partido dos Estudantes">
+            </div>
+            <button id="add-candidate-btn" class="btn">Adicionar Candidato</button>
+            <div class="candidates-list">
+                <h4>Candidatos/Opções Adicionados:</h4>
+                <div id="candidates-container"></div>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button id="save-voting-btn" class="btn">Salvar Votação</button>
+                <button id="back-to-welcome-btn" class="btn btn-secondary">Voltar</button>
+            </div>
+        </div>
+
+        <!-- Tela de Votação -->
+        <div id="voting-screen" class="voting-screen">
+            <h2 id="current-election-title"></h2>
+            <div class="urna-container">
+                <div class="display" id="vote-display">
+                    SEU VOTO PARA<br>
+                    <span id="vote-office"></span>
+                    <div id="vote-numbers"></div>
+                    <div id="candidate-display"></div>
+                </div>
+                <div class="keypad">
+                    <div class="key" data-number="1">1</div>
+                    <div class="key" data-number="2">2</div>
+                    <div class="key" data-number="3">3</div>
+                    <div class="key" data-number="4">4</div>
+                    <div class="key" data-number="5">5</div>
+                    <div class="key" data-number="6">6</div>
+                    <div class="key" data-number="7">7</div>
+                    <div class="key" data-number="8">8</div>
+                    <div class="key" data-number="9">9</div>
+                    <div class="key" data-number="0">0</div>
+                    <div class="key btn-blank" id="blank-btn">BRANCO</div>
+                    <div class="key btn-correct" id="corrige-btn">CORRIGE</div>
+                    <div class="key btn-confirm" id="confirma-btn">CONFIRMA</div>
+                </div>
+                <div class="candidate-info" id="candidate-info" style="display: none;">
+                    <div class="candidate-photo">FOTO</div>
+                    <h3 id="confirmed-name"></h3>
+                    <p id="confirmed-party"></p>
+                    <p id="confirmed-number"></p>
+                    <div class="confirmation-buttons">
+                        <button id="final-confirm-btn" class="btn btn-confirm">CONFIRMAR VOTO</button>
+                        <button id="cancel-vote-btn" class="btn btn-cancel">CANCELAR</button>
+                    </div>
+                </div>
+                <div class="voting-controls" style="margin-top: 20px; display: flex; justify-content: space-between;">
+                    <button id="next-voter-btn" class="btn" disabled>Próximo Eleitor</button>
+                    <button id="end-voting-btn" class="btn btn-cancel">Finalizar Votação</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tela de Transição -->
+        <div id="transition-screen" class="transition-screen">
+            <h2>Preparando para o Próximo Eleitor...</h2>
+        </div>
+
+        <!-- Tela de Resultados -->
+        <div id="results-screen" class="results-screen">
+            <h2>Resultados da Votação</h2>
+            <h3 id="results-election-title"></h3>
+            <div class="chart-container">
+                <canvas id="results-chart"></canvas>
+            </div>
+            <div id="results-table" style="margin-top: 20px;"></div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button id="back-to-initial-btn" class="btn btn-secondary">Voltar à Tela Inicial</button>
+            </div>
+        </div>
+
+        <!-- Modal para Finalizar Votação -->
+        <div id="end-voting-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h2>Finalizar Votação</h2>
+                <p>Digite a senha para finalizar a votação:</p>
+                <input type="password" id="end-voting-password" class="password-input" placeholder="Senha">
+                <p id="end-voting-error" class="password-error" style="display: none;">Senha incorreta!</p>
+                <div style="margin-top: 20px;">
+                    <button id="confirm-end-voting-btn" class="btn btn-confirm">Confirmar</button>
+                    <button id="cancel-end-voting-btn" class="btn btn-cancel">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Áudio da Urna -->
+    <audio id="urna-sound" src="sounds/urna_confirm.mp3"></audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="cons.js"></script>
+</body>
+</html>
