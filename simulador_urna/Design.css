@@ -1,0 +1,237 @@
+:root {
+    --primary-color: #0066cc;
+    --secondary-color: #004080;
+    --background-color: #f0f0f0;
+    --text-color: #333;
+    --light-gray: #e0e0e0;
+    --white: #ffffff;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+h1, h2 {
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.welcome-screen, .configuration-screen, .voting-screen, .results-screen {
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.active {
+    display: block;
+}
+
+.btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px 5px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: var(--secondary-color);
+}
+
+.btn-secondary {
+    background-color: #666;
+}
+
+.btn-secondary:hover {
+    background-color: #555;
+}
+
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.key {
+    background-color: var(--light-gray);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.key:hover {
+    background-color: #d0d0d0;
+    transform: scale(1.05);
+}
+
+.key:active {
+    transform: scale(0.95);
+}
+
+.display {
+    background-color: #222;
+    color: #0f0;
+    font-family: 'Courier New', monospace;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 10px 0;
+    text-align: center;
+    font-size: 24px;
+    min-height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.candidate-info {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.candidate-photo {
+    width: 100px;
+    height: 100px;
+    background-color: #ccc;
+    margin: 0 auto 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+}
+
+.confirmation-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.candidates-list {
+    margin-top: 20px;
+}
+
+.candidate-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.chart-container {
+    width: 100%;
+    height: 300px;
+    margin-top: 20px;
+}
+
+.urna-container {
+    border: 2px solid #333;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #e6e6e6;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Animações */
+.vote-confirmed {
+    animation: pulse 1s;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.theme-selector {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.theme-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.theme-btn.active {
+    border-color: #000;
+}
+
+/* Temas */
+.theme-default {
+    --primary-color: #0066cc;
+    --secondary-color: #004080;
+    --background-color: #f0f0f0;
+    --text-color: #333;
+}
+
+.theme-dark {
+    --primary-color: #4CAF50;
+    --secondary-color: #3e8e41;
+    --background-color: #222;
+    --text-color: #f0f0f0;
+    --light-gray: #444;
+    --white: #333;
+}
+
+.theme-ocean {
+    --primary-color: #0088a3;
+    --secondary-color: #00667a;
+    --background-color: #e0f7ff;
+    --text-color: #003546;
+}

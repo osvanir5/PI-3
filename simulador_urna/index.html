@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="Design.css">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Urna Eletrônica</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+    <body class="theme-default">
+        <div class="container">
+       
+            <div id="welcome-screen" class="welcome-screen active">
+                <h1>Simulador de Urna Eletrônica</h1>
+                <p>Bem-vindo ao simulador de urna eletrônica brasileira. Aqui você pode configurar uma votação personalizada e simular o processo eleitoral.</p>
+                
+                <div class="theme-selector">
+                    <h3>Escolha um tema:</h3>
+                    <div class="theme-btn active" data-theme="theme-default" style="background-color: #0066cc;"></div>
+                    <div class="theme-btn" data-theme="theme-dark" style="background-color: #4CAF50;"></div>
+                    <div class="theme-btn" data-theme="theme-ocean" style="background-color: #0088a3;"></div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button id="start-config-btn" class="btn">Configurar Votação</button>
+                    <button id="quick-start-btn" class="btn btn-secondary">Usar Exemplo Rápido</button>
+                </div>
+            </div>
+    
+            <!-- Tela de Configuração -->
+            <div id="configuration-screen" class="configuration-screen">
+                <h2>Configurar Votação</h2>
+                
+                <div class="form-group">
+                    <label for="election-title">Título da Eleição:</label>
+                    <input type="text" id="election-title" placeholder="Ex: Eleição para Representante de Turma">
+                </div>
+                
+                <h3>Adicionar Candidatos/Opções</h3>
+                
+                <div class="form-group">
+                    <label for="candidate-number">Número do Candidato/Opção (2 dígitos):</label>
+                    <input type="number" id="candidate-number" min="0" max="99" placeholder="Ex: 10">
+                </div>
+                
+                <div class="form-group">
+                    <label for="candidate-name">Nome do Candidato/Opção:</label>
+                    <input type="text" id="candidate-name" placeholder="Ex: João Silva">
+                </div>
+                
+                <div class="form-group">
+                    <label for="candidate-party">Partido/Descrição (opcional):</label>
+                    <input type="text" id="candidate-party" placeholder="Ex: Partido dos Estudantes">
+                </div>
+                
+                <button id="add-candidate-btn" class="btn">Adicionar Candidato</button>
+                
+                <div class="candidates-list">
+                    <h4>Candidatos/Opções Adicionados:</h4>
+                    <div id="candidates-container"></div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button id="start-voting-btn" class="btn">Iniciar Votação</button>
+                    <button id="back-to-welcome-btn" class="btn btn-secondary">Voltar</button>
+                </div>
+            </div>
+    
+            <!-- Tela de Votação -->
+            <div id="voting-screen" class="voting-screen">
+                <h2 id="current-election-title"></h2>
+                
+                <div class="urna-container">
+                    <div class="display" id="vote-display">
+                        SEU VOTO PARA<br>
+                        <span id="vote-office"></span>
+                        <div id="vote-numbers"></div>
+                        <div id="candidate-display"></div>
+                    </div>
+                    
+                    <div class="keypad">
+                        <div class="key" data-number="1">1</div>
+                        <div class="key" data-number="2">2</div>
+                        <div class="key" data-number="3">3</div>
+                        <div class="key" data-number="4">4</div>
+                        <div class="key" data-number="5">5</div>
+                        <div class="key" data-number="6">6</div>
+                        <div class="key" data-number="7">7</div>
+                        <div class="key" data-number="8">8</div>
+                        <div class="key" data-number="9">9</div>
+                        <div class="key" data-number="0">0</div>
+                        <div class="key" id="corrige-btn">CORRIGE</div>
+                        <div class="key" id="confirma-btn">CONFIRMA</div>
+                    </div>
+                    
+                    <div class="candidate-info" id="candidate-info" style="display: none;">
+                        <div class="candidate-photo">FOTO</div>
+                        <h3 id="confirmed-name"></h3>
+                        <p id="confirmed-party"></p>
+                        <p id="confirmed-number"></p>
+                        
+                        <div class="confirmation-buttons">
+                            <button id="final-confirm-btn" class="btn">CONFIRMAR VOTO</button>
+                            <button id="cancel-vote-btn" class="btn btn-secondary">CANCELAR</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button id="show-results-btn" class="btn">Encerrar Votação e Ver Resultados</button>
+                </div>
+            </div>
+    
+        
+            <div id="results-screen" class="results-screen">
+                <h2>Resultados da Votação</h2>
+                <h3 id="results-election-title"></h3>
+                
+                <div class="chart-container">
+                    <canvas id="results-chart"></canvas>
+                </div>
+                
+                <div id="results-table" style="margin-top: 20px;"></div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button id="new-election-btn" class="btn">Nova Eleição</button>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="cons.js"></script>
+    </html>
